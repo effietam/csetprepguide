@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Format Preview</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; padding: 24px; color: #1c1c1e; }
+  .demo-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b7280; margin-bottom: 16px; }
+  
+  /* TOP BAR */
+  .top-bar { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; }
+  .progress { font-size: 13px; color: #6b7280; }
+  .progress span { font-weight: 600; color: #111827; }
+  .toggle-all { font-size: 13px; font-weight: 600; color: #166534; background: #dcfce7; border: 1px solid #bbf7d0; padding: 7px 16px; border-radius: 8px; cursor: pointer; border: none; }
+  .toggle-all:hover { background: #bbf7d0; }
+
+  /* QUESTION CARD */
+  .q-card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 14px; padding: 24px; margin-bottom: 14px; transition: border-color .15s; }
+  .q-card.answered { border-color: #6ee7b7; }
+  .q-header { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
+  .q-num { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 20px; }
+  .q-domain { font-size: 11px; color: #9ca3af; background: #f3f4f6; padding: 3px 10px; border-radius: 20px; }
+  .q-text { font-size: 15px; font-weight: 600; color: #111827; line-height: 1.55; margin-bottom: 16px; }
+  
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid #e5e7eb; border-radius: 10px; cursor: pointer; transition: all .15s; user-select: none; }
+  .opt:hover { border-color: #6ee7b7; background: #f0fdf4; }
+  .opt.selected { border-color: #166534; background: #f0fdf4; }
+  .opt.correct { border-color: #16a34a; background: #dcfce7; }
+  .opt.wrong { border-color: #ef4444; background: #fef2f2; }
+  .opt-letter { width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #6b7280; transition: all .15s; }
+  .opt.selected .opt-letter { background: #166534; color: #fff; }
+  .opt.correct .opt-letter { background: #16a34a; color: #fff; }
+  .opt.wrong .opt-letter { background: #ef4444; color: #fff; }
+  .opt-text { font-size: 14px; color: #374151; }
+
+  /* REVEAL BUTTON */
+  .reveal-btn { width: 100%; padding: 10px; border: 1.5px dashed #d1d5db; border-radius: 10px; background: transparent; font-size: 13px; font-weight: 600; color: #6b7280; cursor: pointer; transition: all .15s; }
+  .reveal-btn:hover { border-color: #166534; color: #166534; background: #f0fdf4; }
+
+  /* ANSWER BLOCK */
+  .answer-block { display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px 18px; margin-top: 12px; }
+  .answer-block.visible { display: block; }
+  .answer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #166534; margin-bottom: 6px; }
+  .answer-correct { font-size: 15px; font-weight: 700; color: #166534; margin-bottom: 8px; display: flex; align-items: center; gap-8px; }
+  .answer-correct::before { content: "✓ "; }
+  .answer-explain { font-size: 13px; color: #374151; line-height: 1.65; }
+
+  /* SCORE BAR */
+  .score-bar { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px 20px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .score-label { font-size: 13px; color: #6b7280; }
+  .score-val { font-size: 20px; font-weight: 700; color: #166534; }
+</style>
+</head>
+<body>
+
+<p class="demo-label">格式预览 — 3道示例题</p>
+
+<div class="top-bar">
+  <div class="progress">已作答 <span id="answeredCount">0</span> / 3 题</div>
+  <button class="toggle-all" onclick="toggleAll()">👁 显示全部答案</button>
+</div>
+
+<!-- Q1 -->
+<div class="q-card" id="card1">
+  <div class="q-header">
+    <span class="q-num">Question 1</span>
+    <span class="q-domain">Subjunctive Mood</span>
+  </div>
+  <div class="q-text">Which sentence correctly uses the present subjunctive?</div>
+  <div class="options" id="opts1">
+    <div class="opt" onclick="select(1,'A')"><div class="opt-letter" id="l1A">A</div><div class="opt-text">Espero que el estudiante <u>llega</u> a tiempo.</div></div>
+    <div class="opt" onclick="select(1,'B')"><div class="opt-letter" id="l1B">B</div><div class="opt-text">Espero que el estudiante <u>llegue</u> a tiempo.</div></div>
+    <div class="opt" onclick="select(1,'C')"><div class="opt-letter" id="l1C">C</div><div class="opt-text">Espero que el estudiante <u>llegó</u> a tiempo.</div></div>
+    <div class="opt" onclick="select(1,'D')"><div class="opt-letter" id="l1D">D</div><div class="opt-text">Espero que el estudiante <u>llegará</u> a tiempo.</div></div>
+  </div>
+  <button class="reveal-btn" id="btn1" onclick="reveal(1)">👁 显示答案与解析</button>
+  <div class="answer-block" id="ans1">
+    <div class="answer-label">Correct Answer</div>
+    <div class="answer-correct">B — "llegue"</div>
+    <div class="answer-explain">After expressions of hope or desire like "esperar que," Spanish requires the subjunctive mood. "Llegue" is the present subjunctive form of "llegar." Options A (indicative), C (preterite), and D (future) are all incorrect here.</div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="q-card" id="card2">
+  <div class="q-header">
+    <span class="q-num">Question 2</span>
+    <span class="q-domain">Ser vs. Estar</span>
+  </div>
+  <div class="q-text">Which sentence correctly uses "estar"?</div>
+  <div class="options" id="opts2">
+    <div class="opt" onclick="select(2,'A')"><div class="opt-letter" id="l2A">A</div><div class="opt-text">La sopa <u>es</u> muy caliente ahora.</div></div>
+    <div class="opt" onclick="select(2,'B')"><div class="opt-letter" id="l2B">B</div><div class="opt-text">La sopa <u>está</u> muy caliente ahora.</div></div>
+    <div class="opt" onclick="select(2,'C')"><div class="opt-letter" id="l2C">C</div><div class="opt-text">Mi hermana <u>está</u> médica.</div></div>
+    <div class="opt" onclick="select(2,'D')"><div class="opt-letter" id="l2D">D</div><div class="opt-text">El cielo <u>está</u> azul siempre.</div></div>
+  </div>
+  <button class="reveal-btn" id="btn2" onclick="reveal(2)">👁 显示答案与解析</button>
+  <div class="answer-block" id="ans2">
+    <div class="answer-label">Correct Answer</div>
+    <div class="answer-correct">B — "La sopa está muy caliente ahora."</div>
+    <div class="answer-explain">"Estar" describes temporary states. A soup being hot right now is temporary → "está." Professions use "ser" (mi hermana es médica). Permanent characteristics use "ser" (el cielo es azul).</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="q-card" id="card3">
+  <div class="q-header">
+    <span class="q-num">Question 3</span>
+    <span class="q-domain">False Cognates</span>
+  </div>
+  <div class="q-text">A student writes: "Estoy muy <em>embarazado</em> por mi error." What is wrong?</div>
+  <div class="options" id="opts3">
+    <div class="opt" onclick="select(3,'A')"><div class="opt-letter" id="l3A">A</div><div class="opt-text">Nothing — the sentence correctly says the student is embarrassed.</div></div>
+    <div class="opt" onclick="select(3,'B')"><div class="opt-letter" id="l3B">B</div><div class="opt-text">"Embarazado" means pregnant, not embarrassed — it is a false cognate.</div></div>
+    <div class="opt" onclick="select(3,'C')"><div class="opt-letter" id="l3C">C</div><div class="opt-text">"Estar" should be replaced with "ser" here.</div></div>
+    <div class="opt" onclick="select(3,'D')"><div class="opt-letter" id="l3D">D</div><div class="opt-text">"Embarazado" is not a real Spanish word.</div></div>
+  </div>
+  <button class="reveal-btn" id="btn3" onclick="reveal(3)">👁 显示答案与解析</button>
+  <div class="answer-block" id="ans3">
+    <div class="answer-label">Correct Answer</div>
+    <div class="answer-correct">B — "Embarazado" means pregnant</div>
+    <div class="answer-explain">"Embarazado/a" is a classic false cognate meaning pregnant, not embarrassed. The correct word for embarrassed is "avergonzado/a." This is one of the most important false cognates for Spanish teachers to know and teach explicitly.</div>
+  </div>
+</div>
+
+<div class="score-bar">
+  <div class="score-label">得分</div>
+  <div class="score-val" id="scoreDisplay">— / 3</div>
+</div>
+
+<script>
+const correct = { 1:'B', 2:'B', 3:'B' };
+const selected = {};
+const revealed = {};
+let allShown = false;
+
+function select(qid, letter) {
+  if (revealed[qid]) return;
+  selected[qid] = letter;
+  const opts = document.querySelectorAll(`#opts${qid} .opt`);
+  opts.forEach(o => o.classList.remove('selected'));
+  document.querySelector(`#opts${qid} .opt:nth-child(${['A','B','C','D'].indexOf(letter)+1})`).classList.add('selected');
+  updateScore();
+}
+
+function reveal(qid) {
+  if (revealed[qid]) return;
+  revealed[qid] = true;
+  document.getElementById(`ans${qid}`).classList.add('visible');
+  document.getElementById(`btn${qid}`).style.display = 'none';
+  document.getElementById(`card${qid}`).classList.add('answered');
+
+  const opts = document.querySelectorAll(`#opts${qid} .opt`);
+  const letters = ['A','B','C','D'];
+  opts.forEach((o, i) => {
+    const ltr = letters[i];
+    const letterEl = document.getElementById(`l${qid}${ltr}`);
+    if (ltr === correct[qid]) {
+      o.classList.add('correct');
+      letterEl.textContent = '✓';
+    } else if (selected[qid] === ltr) {
+      o.classList.add('wrong');
+      letterEl.textContent = '✗';
+    }
+  });
+  updateScore();
+  updateAnsweredCount();
+}
+
+function toggleAll() {
+  allShown = !allShown;
+  document.querySelector('.toggle-all').textContent = allShown ? '🙈 隐藏全部答案' : '👁 显示全部答案';
+  if (allShown) { [1,2,3].forEach(i => reveal(i)); }
+}
+
+function updateScore() {
+  const done = Object.keys(revealed).length;
+  if (done === 0) { document.getElementById('scoreDisplay').textContent = '— / 3'; return; }
+  const right = Object.keys(revealed).filter(q => selected[q] === correct[q]).length;
+  document.getElementById('scoreDisplay').textContent = `${right} / ${done}`;
+}
+
+function updateAnsweredCount() {
+  document.getElementById('answeredCount').textContent = Object.keys(revealed).length;
+}
+</script>
+
+</body>
+</html>
