@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://csetprepguide.com/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- CSET Spanish Subtest 1 Practice Test -->
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-practice-test.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Exam Overview Article -->
+  <url>
+    <loc>https://csetprepguide.com/what-is-cset-spanish-subtest-1.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Registration Guide Article -->
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-145-format-registration.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!--
+    HOW TO ADD NEW PAGES:
+    Copy the <url> block below and paste it above this comment.
+    Update <loc> with the full URL and <lastmod> with today's date (YYYY-MM-DD).
+
+    <url>
+      <loc>https://csetprepguide.com/YOUR-NEW-PAGE.html</loc>
+      <lastmod>2026-06-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  -->
+
+</urlset>
