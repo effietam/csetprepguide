@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/cset-spanish-practice-test.html",
+      "destination": "/cset-spanish-subtest-1-practice-test.html",
+      "permanent": true
+    }
+  ]
+}
