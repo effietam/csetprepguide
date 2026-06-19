@@ -528,8 +528,8 @@ document.addEventListener('click', function(e) {
   const target = document.getElementById(id);
   if (!target) return;
   e.preventDefault();
-  const navHeight = 60; // height of sticky nav bar
-  const extraSpace = 175; // breathing room above heading
+  const navHeight = window.innerWidth < 640 ? 60 : 60; // height of sticky nav bar
+  const extraSpace = window.innerWidth < 640 ? 175 + 50 : 175; // breathing room above heading
   const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
   window.scrollTo({ top: targetTop, behavior: 'auto' });
   history.pushState(null, '', '#' + id);
