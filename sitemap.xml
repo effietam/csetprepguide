@@ -43,4 +43,32 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-subtest-1-faq.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-subtest-1-test-dates.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://csetprepguide.com/how-hard-is-cset-spanish-subtest-1.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://csetprepguide.com/30-day-cset-spanish-study-plan.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
