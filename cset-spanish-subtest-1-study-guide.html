@@ -130,7 +130,6 @@
     .toc a{color:#166534}
     .toc a:hover{text-decoration:underline}
     h2[id]{position:relative}
-    h2[id]::before{content:"";display:block;height:50px;margin-top:-50px;visibility:hidden;pointer-events:none}
     /* Key Takeaways */
     .takeaways{background:#f0fdf4;border:2px solid #166534;border-radius:12px;padding:22px 26px;margin:0 0 36px}
     .takeaways h3{font-size:14px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
@@ -519,5 +518,22 @@
   </div>
 </footer>
 
+
+<script>
+// Manually control scroll position for anchor links - more reliable than CSS scroll-margin-top
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  const id = link.getAttribute('href').slice(1);
+  const target = document.getElementById(id);
+  if (!target) return;
+  e.preventDefault();
+  const navHeight = 60; // height of sticky nav bar
+  const extraSpace = 175; // breathing room above heading
+  const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
+  window.scrollTo({ top: targetTop, behavior: 'auto' });
+  history.pushState(null, '', '#' + id);
+});
+</script>
 </body>
 </html>
