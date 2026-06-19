@@ -390,9 +390,9 @@ document.addEventListener("click", function(e) {
   if (!target) return;
   e.preventDefault();
   const navHeight = 60;
-  const extraSpace = 175;
+  const extraSpace = 24;
   const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
-  window.scrollTo({ top: targetTop, behavior: "auto" });
+  window.scrollTo({ top: Math.max(targetTop, 0), behavior: "auto" });
   history.pushState(null, "", "#" + id);
 });
 </script>
