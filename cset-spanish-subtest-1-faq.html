@@ -74,7 +74,6 @@
     .toc a{color:#166534}
     .toc a:hover{text-decoration:underline}
     .faq-item{position:relative}
-    .faq-item::before{content:"";display:block;height:70px;margin-top:-70px;visibility:hidden;pointer-events:none}
     footer{background:#111827;color:#9ca3af;padding:36px 24px}
     .fi{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
     .fl{color:#f9fafb;font-size:15px;font-weight:700}
@@ -221,5 +220,21 @@
   <p style="font-size:13px;color:#9ca3af;margin-top:16px">This page is for informational purposes. Always verify current details at ctcexams.nesinc.com.</p>
 </div>
 <footer><div class="fi"><div class="fl">CSET PrepGuide</div><p>© 2026 csetprepguide.com &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; Not affiliated with CTC or Pearson</p></div></footer>
+
+<script>
+document.addEventListener("click", function(e) {
+  const link = e.target.closest("a[href^="#"]");
+  if (!link) return;
+  const id = link.getAttribute("href").slice(1);
+  const target = document.getElementById(id);
+  if (!target) return;
+  e.preventDefault();
+  const navHeight = 60;
+  const extraSpace = 175;
+  const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
+  window.scrollTo({ top: targetTop, behavior: "auto" });
+  history.pushState(null, "", "#" + id);
+});
+</script>
 </body>
 </html>
