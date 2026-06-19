@@ -51,7 +51,8 @@
     .toc li{font-size:14px;margin-bottom:5px}
     .toc a{color:#166534}
     .toc a:hover{text-decoration:underline}
-    h2[id]{scroll-margin-top:100px;padding-top:8px}
+    h2[id]{position:relative}
+    h2[id]::before{content:"";display:block;height:90px;margin-top:-90px;visibility:hidden;pointer-events:none}
     .step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
     .step-num{width:32px;height:32px;border-radius:50%;background:#166534;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
     .step-body h3{margin:0 0 6px;font-size:16px}
