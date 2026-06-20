@@ -85,4 +85,18 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-subtest-1-retake-policy.html</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://csetprepguide.com/cset-spanish-subtest-1-grammar-cheat-sheet.html</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
