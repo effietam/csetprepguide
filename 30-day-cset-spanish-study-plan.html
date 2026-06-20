@@ -52,7 +52,6 @@
     .toc a{color:#166534}
     .toc a:hover{text-decoration:underline}
     h2[id]{position:relative}
-    h2[id]::before{content:"";display:block;height:70px;margin-top:-70px;visibility:hidden;pointer-events:none}
     .week-block{border:1.5px solid #e5e7eb;border-radius:14px;overflow:hidden;margin-bottom:24px}
     .week-header{background:#166534;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
     .week-title{font-size:16px;font-weight:700}
@@ -291,5 +290,21 @@
   <p style="font-size:13px;color:#9ca3af;margin-top:16px">This page is for informational purposes. Always verify current details at ctcexams.nesinc.com.</p>
 </div>
 <footer><div class="fi"><div class="fl">CSET PrepGuide</div><p>© 2026 csetprepguide.com &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; Not affiliated with CTC or Pearson</p></div></footer>
+
+<script>
+document.addEventListener("click", function(e) {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  const id = link.getAttribute("href").slice(1);
+  const target = document.getElementById(id);
+  if (!target) return;
+  e.preventDefault();
+  const navHeight = window.innerWidth < 640 ? 60 : 60;
+  const extraSpace = window.innerWidth < 640 ? 240 + 20 : 240;
+  const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
+  window.scrollTo({ top: Math.max(targetTop, 0), behavior: "auto" });
+  history.pushState(null, "", "#" + id);
+});
+</script>
 </body>
 </html>
