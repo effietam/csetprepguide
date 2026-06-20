@@ -223,16 +223,16 @@
 
 <script>
 document.addEventListener("click", function(e) {
-  const link = e.target.closest("a[href^="#"]");
+  const link = e.target.closest('a[href^="#"]');
   if (!link) return;
   const id = link.getAttribute("href").slice(1);
   const target = document.getElementById(id);
   if (!target) return;
   e.preventDefault();
-  const navHeight = 60;
-  const extraSpace = 175;
+  const navHeight = window.innerWidth < 640 ? 60 : 60;
+  const extraSpace = window.innerWidth < 640 ? 240 + 65 : 240;
   const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
-  window.scrollTo({ top: targetTop, behavior: "auto" });
+  window.scrollTo({ top: Math.max(targetTop, 0), behavior: "auto" });
   history.pushState(null, "", "#" + id);
 });
 </script>
