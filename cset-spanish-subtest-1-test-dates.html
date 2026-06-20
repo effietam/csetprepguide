@@ -214,7 +214,7 @@ document.addEventListener("click", function(e) {
   if (!target) return;
   e.preventDefault();
   const navHeight = window.innerWidth < 640 ? 60 : 60;
-  const extraSpace = window.innerWidth < 640 ? 240 + 65 : 240;
+  const extraSpace = window.innerWidth < 640 ? 240 + 20 : 240;
   const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - extraSpace;
   window.scrollTo({ top: Math.max(targetTop, 0), behavior: "auto" });
   history.pushState(null, "", "#" + id);
